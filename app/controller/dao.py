@@ -13,10 +13,6 @@ class DAO():
 
     Methods
     -------
-    def organizar_pessoas():
-        Faz a divisão das pessoas nas salas para as duas etapas e salva
-        no banco
-    
     def cadastrar_pessoa(form=None):
         Cadastra uma nova pessoa.
 
@@ -31,4 +27,12 @@ class DAO():
     
     def pesquisa_aluno(id):
         Pesquisa o aluno desejado no banco.
+
+    def organizar_pessoas():
+        Faz a divisão das pessoas nas salas para as duas etapas e salva
+        no banco
     '''
+    def cadastrar_pessoa(self, form):
+        nova_pessoa = Pessoa(nome=form.nome.data,
+                             sobrenome=form.nome.data)
+        Pessoa.create(nova_pessoa)
