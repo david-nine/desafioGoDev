@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block main %}
+<h2>Etapa 1</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome Sala</th>
+        <th scope="col">Tipo</th>
+      </tr>
+    </thead>
+    <tbody class="table-hover">
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br>
+<h2>Etapa 2</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome Sala</th>
+        <th scope="col">Tipo</th>
+      </tr>
+    </thead>
+    <tbody class="table-hover">
+      <tr>
+        <th scope="row">{{etapa[0]}}</th>
+        <td>Sala do evento</td>
+      </tr>
+      <tr>
+        <th scope="row">{{cafe[0]}}</th>
+        <td>Sala de café</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

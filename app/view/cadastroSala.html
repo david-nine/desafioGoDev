@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{%from "help.html" import render_field %}
+{% block main %}
+<div class="form">
+<form action="/cadastroSala" method="post">
+    {{form.csrf_token}}
+    {{render_field(form.nome)}}
+    {{render_field(form.locacao)}}
+    {{form.submit}}
+</form>
+</div>
+{% endblock %}

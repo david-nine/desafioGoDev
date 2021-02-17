@@ -24,6 +24,8 @@ class FormPessoa(FlaskForm):
     sobrenome = StringField("Sobrenome", 
                             validators=[InputRequired("Informe o sobrenome\
                                                        da pessoa")])
+    submit = SubmitField("Confirmar")
+
 
 class FormSala(FlaskForm):
     '''Formulário para cadastro de Sala
@@ -39,12 +41,14 @@ class FormSala(FlaskForm):
     def validate_nome(nome=None):
         verifica se ja existe uma sala com esse nome
     '''
-    nome = StringField("Nome", validators=[InputRequired("Informe um \
+    nome = StringField("Nome", validators=[InputRequired("Informe um\
                                                           nome para a sala")])
 
     lotacao = IntegerField("Lotação",
                            validators=[InputRequired('Informe a lotação\
                                                       máxima da sala')])
+    submit = SubmitField("Confirmar")
+
     def validate_nome(self):
         if Sala.query.filter_by(nome=nome).first():
             raise ValidationError('Já existe uma sala com este nome')
@@ -62,7 +66,28 @@ class FormCafe(FlaskForm):
     '''
     nome = StringField("Nome", validators=[InputRequired("Informe um \
                                                           nome para a sala")])
+    submit = SubmitField("Confirmar")
+
 
     def validate_nome(self):
         if Sala.query.filter_by(nome=nome).first():
             raise ValidationError('Já existe uma sala com este nome')
+
+class FormPesquisa(FlaskForm):
+    '''Formulário para Pesquisa de Sala
+
+    nome : str
+        nome da sala
+    
+    Methods
+    -------
+    def validate_nome(nome=None):
+        Verifica se essa sala existe
+    '''
+    nome = StringField("Buscar Sala", validators=[InputRequired("Informe o \
+                                                                 nome da sala")])
+    submit = SubmitField("Confirmar")
+
+    def validate_nome(self):
+        if Sala.query.filter_by(nome=nome).first() == None:
+            raise ValidationError('Esta sala não existe')
