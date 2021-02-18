@@ -19,20 +19,8 @@ class Pessoa(db.Model):
     nome : str
         nome da pessoa
     
-    salas : list
-        salas relacionadas a Pessoa
-
-    etapa1 : str
-        sala da etapa 1
-
-    etapa2 : str
-        sala da etapa 2
-
-    cafe1 : str
-        sala pro café da etapa 1
-
-    cafe2 : str
-        sala pro café da etapa 2
+    sobrenome : str
+        sobrenome da pessoa
 
     Methods
     -------
@@ -44,21 +32,32 @@ class Pessoa(db.Model):
     '''
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(100), nullable=False)
-    sobrenome = db.Column(db.String(100), nullable=False)
-    etapa1 = db.Column(db.String(200), nullable=True)
-    etapa2 = db.Column(db.String(200), nullable=True)
+    sobrenome = db.Column(db.String(200), nullable=False)
+    sala1 = db.Column(db.String(200), nullable=True)
+    sala2 = db.Column(db.String(200), nullable=True)
     cafe1 = db.Column(db.String(200), nullable=True)
     cafe2 = db.Column(db.String(200), nullable=True)
-
+    sala_id = db.Column(db.Integer, db.ForeignKey('sala.nome'),
+                        nullable=True)
+    sala_cafe_id = db.Column(db.Integer, db.ForeignKey('sala_cafe.nome'),
+                             nullable=True)
+    
     def __repr__(self):
-        return f"EmpresaModel('{self.id}', '{self.nome}', '{self.sobrenome}',\
-                              '{self.etapa1}', '{self.etapa2}', '{self.cafe1}',\
-                              '{self.cafe3}')"  
+        return f"Pessoa('{self.id}', '{self.nome}', '{self.sobrenome}')"
+
+    def save(self):
+        db.session.merge(self)
+        db.sessin.commit()
+    
+    def create(self, pessoa):
+        db.session.add(pessoa)
+        db.session.commit()
+
 
 class Sala(db.Model):
     '''Tabela Sala
 
-    Cria a tabela Pessoa no banco de dados e salva os dados.
+    Cria a tabela Sala no banco de dados e salva os dados.
 
     Atributes
     ---------
@@ -67,6 +66,12 @@ class Sala(db.Model):
     
     lotacao : str
         capacidade de pessoas na sala
+
+    etapa1 : list
+        lista de pessoas na sala durante a primeira etapa
+    
+    etapa2 : list
+        lista de pessoas na sala durante a segunda etapa
     
     Methods
     -------
@@ -78,6 +83,50 @@ class Sala(db.Model):
     '''
     nome = db.Column(db.String(200), primary_key=True)
     lotacao = db.Column(db.Integer, nullable=True)
-    
+    pessoas1 = db.relationship('Pessoa', backref='pessoa1', lazy=True)
+    pessoas2 = db.relationship('Pessoa', backref='pessoa2', lazy=True)
+
+
     def __repr__(self):
-        return f"EmpresaModel('{self.nome}', '{self.lotacao}')"
+        return f"Sala('{self.nome}', '{self.lotacao}','{self.pessoas1}', '{self.pessoas2}')"
+
+    def save(self):
+        db.session.merge(self)
+        db.sessin.commit()
+    
+    def create(self, sala):
+        db.session.add(sala)
+        db.session.commit()
+
+class SalaCafe(db.Model):
+    '''Tabela SalaCafe
+
+    Cria a tabela Sala no banco de dados e salva os dados.
+
+    Atributes
+    ---------
+    nome : str
+        nome da sala
+    
+    Methods
+    -------
+    def create(salacafe=None):
+        Cria uma nova SalaCafe no banco
+
+    def save():
+        Salva as novas informações da SalaCafe no banco de dados
+    '''
+    nome = db.Column(db.String(200), primary_key=True)
+    pessoas1 = db.relationship('Pessoa', backref='pessoacafe1', lazy=True)
+    pessoas2 = db.relationship('Pessoa', backref='pessoacafe2', lazy=True)
+
+    def __repr__(self):
+        return f"SalaCafe('{self.nome}','{self.etapa1}', '{self.etapa2}')"
+
+    def save(self):
+        db.session.merge(self)
+        db.sessin.commit()
+    
+    def create(self, salacafe):
+        db.session.add(salacafe)
+        db.session.commit()

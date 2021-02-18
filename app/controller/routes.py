@@ -1,8 +1,8 @@
 from app import app
 from flask import render_template, redirect
-# from app import db
-from app.controller.dao import DAO
 from app.model.forms import FormCafe, FormPessoa, FormSala, FormPesquisa
+from app.model.dao import DAO
+
 DAO =  DAO()
 
 @app.route('/', methods=['get', 'post'])
@@ -15,12 +15,13 @@ def index():
     pesquisar salas e uma lista com todas as pessoas, com um botão para
     visualizar a pessoa, ao lado. 
     '''
+    # DAO.organizar_pessoas()
+    pessoas = DAO.busca_pessoas()
     form = FormPesquisa()
     if form.validate_on_submit():
-        sala = DAO.pesquisa_sala(form)
-        return redirect('verSala/'+sala.nome)
+        return redirect('verSala/'+form.nome.data)
     
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, pessoas=pessoas)
 
 @app.route('/cadastroPessoa', methods=['get', 'post'])
 def cadastro_pessoa():
@@ -31,7 +32,6 @@ def cadastro_pessoa():
     form = FormPessoa()
     if form.validate_on_submit():
         DAO.cadastrar_pessoa(form)
-        DAO.organizar_pessoas()
         return redirect('/')
 
     return render_template('cadastroPessoa.html', form=form)
@@ -45,9 +45,8 @@ def cadastro_sala():
     form = FormSala()
     if form.validate_on_submit():
         DAO.cadastrar_sala(form)
-        DAO.organizar_pessoas()
         return redirect('/index')
-    render_template('cadastroSala.html', form=form)
+    return render_template('cadastroSala.html', form=form)
 
 
 @app.route('/verSala/<sala>', methods=['get', 'post'])
@@ -62,11 +61,11 @@ def ver_sala(sala):
     sala : str
         nome da sala 
     '''
-    etapas = DAO.getPessoasSala(sala)
-    etapa1 = etapas[0]
-    etapa2 = etapas[1]
+    sala = DAO.pesquisa_sala(sala)
+    etapa1 = sala.etapa1
+    etapa2 = sala.etapa2
 
-    return render_template('sala.html', etapa1=etapa1, etapa2=etapa2)
+    return render_template('sala.html', sala=sala, etapa1=etapa1, etapa2=etapa2)
 
 @app.route('/cadastroCafe', methods=['get', 'post'])
 def cadastro_cafe():
@@ -76,15 +75,15 @@ def cadastro_cafe():
     '''
     form = FormCafe()
     if form.validate_on_submit():
-        DAO.cadastrar_sala(form)
-        DAO.organizar_pessoas()
+        DAO.cadastrar_salacafe(form)
         return redirect('/index')
-    render_template('cadastroCafe.html', form=form)
+    return render_template('cadastroCafe.html', form=form)
 
 @app.route('/verPessoa/<id>', methods=['get', 'post'])
 def ver_pessoa(id):
     pessoa = DAO.pesquisa_pessoa(id)
-    etapa = [pessoa.etapa1.nome, pessoa.etapa2.nome]
-    cafe = [pessoa.cafe1.nome, pessoa.cafe2.nome]
-    return render_template('pessoa.html', etapa=etapa, cafe=cafe)
-    
+    salas = pessoa[1]
+    salascafe = pessoa[2]
+    pessoa = pessoa[0]
+    return render_template('pessoa.html', pessoa=pessoa, salascafe=salascafe,\
+                           salas=salas)

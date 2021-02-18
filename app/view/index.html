@@ -8,6 +8,9 @@
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="/cadastroPessoa">Cadastrar Pessoa</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/cadastroCafe">Cadastrar Espaços de café</a>
+    </li>
 </ul>
 <style>
     .form{
@@ -20,5 +23,27 @@
     {{render_field(form.nome)}}
     {{form.submit}}
 </form>
+</div>
+<div>
+    {% if pessoas: %}
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+        {% for pessoa in pessoas %}
+            <tbody class="table-hover">
+                <tr>
+                    <th scope="row">{{pessoa.nome}}</th>
+                    <td><a href="/verPessoa/{{pessoa.id}}">Ver pessoa</a></td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    {% else %}
+    
+    {% endif %}
 </div>
 {% endblock %}

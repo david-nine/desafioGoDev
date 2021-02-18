@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import InputRequired, ValidationError
 from app import db
-from app.model.models import Sala
+from app.model.models import Sala, SalaCafe, Pessoa
 
 '''
 Arquivo contendo os formulários
@@ -26,6 +26,18 @@ class FormPessoa(FlaskForm):
                                                        da pessoa")])
     submit = SubmitField("Confirmar")
 
+    def validate_nome(self, nome):
+        if not Sala.query.all():
+            raise ValidationError('Não existem salas')
+        if len(Sala.query.all()) < 2:
+            raise ValidationError('Não há salas suficientes para o\
+                                    cadastro de pessoas')
+        
+        if not SalaCafe.query.all():
+            raise ValidationError('Não existem espaços de café')
+        if len(SalaCafe.query.all()) < 2:
+            raise ValidationError('Não há espaços de café suficientes para o\
+                                    cadastro de pessoas')
 
 class FormSala(FlaskForm):
     '''Formulário para cadastro de Sala
@@ -49,8 +61,8 @@ class FormSala(FlaskForm):
                                                       máxima da sala')])
     submit = SubmitField("Confirmar")
 
-    def validate_nome(self):
-        if Sala.query.filter_by(nome=nome).first():
+    def validate_nome(self, nome):
+        if Sala.query.filter_by(nome=nome.data).first():
             raise ValidationError('Já existe uma sala com este nome')
 
 class FormCafe(FlaskForm):
@@ -69,8 +81,8 @@ class FormCafe(FlaskForm):
     submit = SubmitField("Confirmar")
 
 
-    def validate_nome(self):
-        if Sala.query.filter_by(nome=nome).first():
+    def validate_nome(self, nome):
+        if Sala.query.filter_by(nome=nome.data).first():
             raise ValidationError('Já existe uma sala com este nome')
 
 class FormPesquisa(FlaskForm):
@@ -88,6 +100,6 @@ class FormPesquisa(FlaskForm):
                                                                  nome da sala")])
     submit = SubmitField("Confirmar")
 
-    def validate_nome(self):
-        if Sala.query.filter_by(nome=nome).first() == None:
+    def validate_nome(self, nome):
+        if not Sala.query.filter_by(nome=nome.data).first():
             raise ValidationError('Esta sala não existe')

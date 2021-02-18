@@ -13,4 +13,4 @@ db = SQLAlchemy(app)
 from app.model import forms
 from app.model import models
 from app.controller import routes
-from app.controller import dao
+from app.model import dao
