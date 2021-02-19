@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {%from "help.html" import render_field %}
 {% block main %}
+<style>
+    input[type=text]{
+        background-color: blue;
+    }
+</style>
 <div class="form">
 <form action="/cadastroSala" method="post">
     {{form.csrf_token}}

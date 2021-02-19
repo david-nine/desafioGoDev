@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, redirect
 from app.model.forms import FormCafe, FormPessoa, FormSala, FormPesquisa
 from app.model.dao import DAO
+from app.model.models import Pessoa, Sala
 
 DAO =  DAO()
 
@@ -15,6 +16,33 @@ def index():
     pesquisar salas e uma lista com todas as pessoas, com um botão para
     visualizar a pessoa, ao lado. 
     '''
+    pessoa1 = Pessoa(nome='david', sobrenome='hildebrandt')
+    pessoa1.create(pessoa1)
+    pessoa2 = Pessoa(nome='jorge', sobrenome='sobrenome')
+    pessoa2.create(pessoa2)
+    pessoa3 = Pessoa(nome='alisson', sobrenome='flores')
+    pessoa3.create(pessoa3)
+
+    sala1 = Sala(nome='sala 01', lotacao=15)
+    sala1.create(sala1)
+    sala2 = Sala(nome='sala 02', lotacao=20)
+    sala2.create(sala2)
+    sala3 = Sala(nome='sala cafe 01')
+    sala3.create(sala3)
+    sala4 = Sala(nome='sala cafe 02')
+    sala4.create(sala4)
+    
+    sala1.etapa1.append(pessoa1)
+    sala1.etapa1.append(pessoa2)
+    sala1.etapa1.append(pessoa3)
+    sala1.save()
+    sala1.etapa2.append(pessoa2)
+    sala1.etapa2.append(pessoa3)
+    sala1.etapa2.append(pessoa1)
+    sala1.save()
+    # pessoas = DAO.busca_pessoas()
+
+
     # DAO.organizar_pessoas()
     pessoas = DAO.busca_pessoas()
     form = FormPesquisa()
@@ -61,9 +89,9 @@ def ver_sala(sala):
     sala : str
         nome da sala 
     '''
-    sala = DAO.pesquisa_sala(sala)
-    etapa1 = sala.etapa1
-    etapa2 = sala.etapa2
+    # sala = DAO.pesquisa_sala(sala)
+    # etapa1 = sala.etapa1
+    # etapa2 = sala.etapa2
 
     return render_template('sala.html', sala=sala, etapa1=etapa1, etapa2=etapa2)
 

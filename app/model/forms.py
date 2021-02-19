@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import InputRequired, ValidationError
 from app import db
-from app.model.models import Sala, SalaCafe, Pessoa
+from app.model.models import Sala, Pessoa
 
 '''
 Arquivo contendo os formulários
@@ -101,5 +101,6 @@ class FormPesquisa(FlaskForm):
     submit = SubmitField("Confirmar")
 
     def validate_nome(self, nome):
+
         if not Sala.query.filter_by(nome=nome.data).first():
             raise ValidationError('Esta sala não existe')
