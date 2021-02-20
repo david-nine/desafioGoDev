@@ -16,11 +16,9 @@ def index():
     pesquisar salas e uma lista com todas as pessoas, com um botão para
     visualizar a pessoa, ao lado. 
     '''
-
     form = FormPesquisa()
     if form.validate_on_submit():
         return redirect('verSala/'+form.nome.data)
-        
     pessoa1 = Pessoa(nome='david', sobrenome='hildebrandt')
     DAO.create(pessoa1)
     pessoa2 = Pessoa(nome='jorge', sobrenome='sobrenome')
@@ -36,42 +34,43 @@ def index():
     DAO.create(sala3)
     sala4 = Sala(nome='sala cafe 02')
     DAO.create(sala4)
-    sala1.etapa1.append(pessoa1)
-    sala1.etapa1.append(pessoa2)
-    sala1.etapa1.append(pessoa3)
-    sala1.save()
-    sala1.etapa2.append(pessoa2)
-    sala1.etapa2.append(pessoa3)
-    sala1.etapa2.append(pessoa1)
-    sala1.save()
-    sala2.etapa1.append(pessoa1)
-    sala2.etapa1.append(pessoa2)
-    sala2.etapa1.append(pessoa3)
-    sala2.save()
-    sala2.etapa2.append(pessoa2)
-    sala2.etapa2.append(pessoa3)
-    sala2.etapa2.append(pessoa1)
-    sala2.save()
-    sala3.etapa1.append(pessoa1)
-    sala3.etapa1.append(pessoa2)
-    sala3.etapa1.append(pessoa3)
-    sala3.save()
-    sala3.etapa2.append(pessoa2)
-    sala3.etapa2.append(pessoa3)
-    sala3.etapa2.append(pessoa1)
-    sala3.save()    
-    sala4.etapa1.append(pessoa1)
-    sala4.etapa1.append(pessoa2)
-    sala4.etapa1.append(pessoa3)
-    sala4.save()
-    sala4.etapa2.append(pessoa2)
-    sala4.etapa2.append(pessoa3)
-    sala4.etapa2.append(pessoa1)
-    sala4.save()
+    # sala1.etapa1.append(pessoa1)
+    # sala1.etapa1.append(pessoa2)
+    # sala1.etapa1.append(pessoa3)
+    # sala1.save()
+    # sala1.etapa2.append(pessoa2)
+    # sala1.etapa2.append(pessoa3)
+    # sala1.etapa2.append(pessoa1)
+    # sala1.save()
+    # sala2.etapa1.append(pessoa1)
+    # sala2.etapa1.append(pessoa2)
+    # sala2.etapa1.append(pessoa3)
+    # sala2.save()
+    # sala2.etapa2.append(pessoa2)
+    # sala2.etapa2.append(pessoa3)
+    # sala2.etapa2.append(pessoa1)
+    # sala2.save()
+    # sala3.etapa1.append(pessoa1)
+    # sala3.etapa1.append(pessoa2)
+    # sala3.etapa1.append(pessoa3)
+    # sala3.save()
+    # sala3.etapa2.append(pessoa2)
+    # sala3.etapa2.append(pessoa3)
+    # sala3.etapa2.append(pessoa1)
+    # sala3.save()    
+    # sala4.etapa1.append(pessoa1)
+    # sala4.etapa1.append(pessoa2)
+    # sala4.etapa1.append(pessoa3)
+    # sala4.save()
+    # sala4.etapa2.append(pessoa2)
+    # sala4.etapa2.append(pessoa3)
+    # sala4.etapa2.append(pessoa1)
+    # sala4.save()
     # pessoas = DAO.busca_pessoas()
 
 
-    # DAO.organizar_pessoas()
+    DAO.organizar_pessoas()
+
     pessoas = DAO.busca_pessoas()
     
     return render_template('index.html', form=form, pessoas=pessoas)
@@ -117,7 +116,6 @@ def ver_sala(sala):
     sala = DAO.pesquisa_sala(sala)
     etapa1 = sala.etapa1
     etapa2 = sala.etapa2
-
     return render_template('sala.html', sala=sala, etapa1=etapa1, etapa2=etapa2)
 
 @app.route('/cadastroCafe', methods=['get', 'post'])
@@ -136,19 +134,5 @@ def cadastro_cafe():
 def ver_pessoa(id):
     pessoa = DAO.pesquisa_pessoa(id)
     salas = Sala.query.with_parent(pessoa)
-    sala1 = salas[0]
-    sala2 = salas[1]
-    sala3 = salas[2]
-    sala4 = salas[3]
-    # sala4 = salas[2]
-    print("------------------------")
-    print(sala2)
-    print("------------------------")
-    print(sala2)
-    print("------------------------")
-    print(sala3)
-    print("------------------------")
-    print(sala4)
 
-    return render_template('pessoa.html', pessoa=pessoa, sala1=sala1,
-                           sala2=sala2, sala3=sala3, sala4=sala4)
+    return render_template('pessoa.html', pessoa=pessoa, salas=salas)

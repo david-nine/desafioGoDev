@@ -95,26 +95,62 @@ class DAO:
         pessoa = Pessoa.query.filter_by(id=id).first()
         return pessoa
 
+    def busca_salas_da_pessoa(self, pessoa):
+        salas = Sala.query.with_parent(pessoa)
+        return salas
+
     def busca_pessoas(self):
-        pessoa = Pessoa.query.all()
-        return pessoa
+        return Pessoa.query.all()
 
     def create(self, objeto):
         db.session.add(objeto)
         db.session.commit()
 
-    # def organizar_pessoas(self, tipo):
-    #     '''Faz a divisão das pessoas nas salas
+    def organizar_pessoas(self):
+        '''Faz a divisão das pessoas nas salas
 
-    #     Faz uma lista com todos as pessoas e vai adicionando uma por vez
-    #     em uma das salas de forma que as salas fiquem com o mesmo número
-    #     de pessoas ou no máximo uma a mais. 
-    #     '''
-    #     lista_pessoas = Pessoa.query.all()
+        Faz uma lista com todos as pessoas e vai adicionando uma por vez
+        em uma das salas de forma que as salas fiquem com o mesmo número
+        de pessoas ou no máximo uma a mais. 
+        '''
+        pessoas = Pessoa.query.all()
+        if pessoas:
+            salascafe = Sala.query.filter_by(lotacao=None).all()
+            salas = Sala.query.all()
+            salas_certo = []
+            for sala in salas:
+                if sala.lotacao != None:
+                    salas_certo.append(sala)  
 
-    #     quant = len(lista_salas)
-    #     i = 0    
+            i = 0
+            for pessoa in pessoas:
+                i2 = i+1
+                if i == (len(salas_certo)-1):
+                    i2 = 0
+                salas_certo[i].etapa1.append(pessoa)
+                salas_certo[i2].etapa2.append(pessoa)
+                salas_certo[i].save()
+                salas_certo[i2].save()
+                i += 1
+                if i == (len(salas_certo)-1):
+                    i = 0
+
+            i = 0
+            for pessoa in pessoas:
+                i2 = i+1
+                if i == (len(salascafe)-1):
+                    i2 = 0
+                salascafe[i].etapa1.append(pessoa)
+                salascafe[i2].etapa2.append(pessoa)
+                salascafe[i].save()
+                salascafe[i2].save()
+                i += 1
+                if i == (len(salascafe)-1):
+                    i = 0
         
+        print(self.pesquisa_pessoa(pessoas[0].id))
+        salas = self.busca_salas_da_pessoa(pessoas[0])
+        # print(salas[0])
 
 
 
