@@ -1,4 +1,5 @@
 from app import app
+from app import db
 from app.model.models import Pessoa, Sala
 from app.model.forms import FormSala, FormPessoa, FormPesquisa
 
@@ -42,7 +43,7 @@ class DAO:
         '''
         nova_pessoa = Pessoa(nome=form.nome.data,
                              sobrenome=form.sobrenome.data)
-        nova_pessoa.create(nova_pessoa)
+        self.create(nova_pessoa)
         
 
     def cadastrar_sala(self, form):
@@ -56,7 +57,7 @@ class DAO:
             cadastrada
         '''
         nova_sala = Sala(nome=form.nome.data, lotacao=form.lotacao.data)
-        nova_sala.create(nova_sala)
+        self.create(nova_sala)
         
 
     def cadastrar_salacafe(self, form):
@@ -70,7 +71,7 @@ class DAO:
             cadastrada
         '''
         nova_sala = Sala(nome=form.nome.data)
-        nova_sala.create(nova_sala)
+        self.create(nova_sala)
 
     def pesquisa_sala(self, nome):
         '''Pesquisa a Sala com o nome passado pelo form
@@ -91,15 +92,16 @@ class DAO:
         id : int
             id da pessoa procurada
         '''
-        # pessoa = Pessoa.query.get(id)
-        # salas = [Sala.query.with_parent(pessoa1)]
-        # salas.append(Sala.query.with_parent(some_pessoa2))
-        # salascafe = [SalaCafe.query.with_parent(some_pessoa3)] 
-        # salascafe.append([SalaCafe.query.with_parent(some_pessoa4)])
-        # return (pessoa, salas, salascafe)
+        pessoa = Pessoa.query.filter_by(id=id).first()
+        return pessoa
 
     def busca_pessoas(self):
-        return Pessoa.query.all()
+        pessoa = Pessoa.query.all()
+        return pessoa
+
+    def create(self, objeto):
+        db.session.add(objeto)
+        db.session.commit()
 
     # def organizar_pessoas(self, tipo):
     #     '''Faz a divisão das pessoas nas salas
