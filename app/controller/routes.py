@@ -19,21 +19,46 @@ def index():
     form = FormPesquisa()
     if form.validate_on_submit():
         return redirect('verSala/'+form.nome.data)
-    pessoa1 = Pessoa(nome='david', sobrenome='hildebrandt')
-    DAO.create(pessoa1)
-    pessoa2 = Pessoa(nome='jorge', sobrenome='sobrenome')
-    DAO.create(pessoa2)
-    pessoa3 = Pessoa(nome='alisson', sobrenome='flores')
-    DAO.create(pessoa3)
+    
+    for i in range(20):
+        nome = 'pessoa'+str(i)
+        pessoa = Pessoa(nome=nome, sobrenome='sobrenome')
+        DAO.create(pessoa)
 
-    sala1 = Sala(nome='sala 01', lotacao=15)
-    DAO.create(sala1)
-    sala2 = Sala(nome='sala 02', lotacao=20)
-    DAO.create(sala2)
-    sala3 = Sala(nome='sala cafe 01')
-    DAO.create(sala3)
-    sala4 = Sala(nome='sala cafe 02')
-    DAO.create(sala4)
+    for i in range(5):
+        nome = 'sala 0'+str(i)
+        sala = Sala(nome=nome, lotacao='15')
+        DAO.create(sala)
+
+    for i in range(5):
+        nome = 'sala cafe 0'+str(i)
+        sala = Sala(nome=nome)
+        DAO.create(sala)
+    
+
+    # pessoa1 = Pessoa(nome='david', sobrenome='hildebrandt')
+    # DAO.create(pessoa1)
+    # pessoa2 = Pessoa(nome='jorge', sobrenome='sobrenome')
+    # DAO.create(pessoa2)
+    # pessoa3 = Pessoa(nome='alisson', sobrenome='flores')
+    # DAO.create(pessoa3)
+
+    # sala1 = Sala(nome='sala 01', lotacao=15)
+    # DAO.create(sala1)
+    # sala2 = Sala(nome='sala 02', lotacao=20)
+    # DAO.create(sala2)
+    # sala3 = Sala(nome='sala cafe 01')
+    # DAO.create(sala3)
+    # sala4 = Sala(nome='sala cafe 02')
+    # DAO.create(sala4)
+    # sala5 = Sala(nome='sala 03', lotacao=15)
+    # DAO.create(sala5)
+    # sala6 = Sala(nome='sala 04', lotacao=15)
+    # DAO.create(sala6)
+    # sala7 = Sala(nome='sala cafe 03')
+    # DAO.create(sala7)
+    # sala8 = Sala(nome='sala cafe 04')
+    # DAO.create(sala8)
     # sala1.etapa1.append(pessoa1)
     # sala1.etapa1.append(pessoa2)
     # sala1.etapa1.append(pessoa3)
@@ -66,7 +91,6 @@ def index():
     # sala4.etapa2.append(pessoa3)
     # sala4.etapa2.append(pessoa1)
     # sala4.save()
-    # pessoas = DAO.busca_pessoas()
 
 
     DAO.organizar_pessoas()

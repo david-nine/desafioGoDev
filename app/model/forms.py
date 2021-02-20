@@ -32,12 +32,7 @@ class FormPessoa(FlaskForm):
         if len(Sala.query.all()) < 2:
             raise ValidationError('Não há salas suficientes para o\
                                     cadastro de pessoas')
-        
-        if not SalaCafe.query.all():
-            raise ValidationError('Não existem espaços de café')
-        if len(SalaCafe.query.all()) < 2:
-            raise ValidationError('Não há espaços de café suficientes para o\
-                                    cadastro de pessoas')
+    
 
 class FormSala(FlaskForm):
     '''Formulário para cadastro de Sala

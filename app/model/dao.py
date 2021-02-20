@@ -127,31 +127,23 @@ class DAO:
                 i2 = i+1
                 if i == (len(salas_certo)-1):
                     i2 = 0
-                salas_certo[i].etapa1.append(pessoa)
-                salas_certo[i2].etapa2.append(pessoa)
-                salas_certo[i].save()
+                print("i = ", i)
+                print("i2 = ", i2)
+                # print(salas_certo[i2])
+                salas_certo[i2].etapa1.append(pessoa)
                 salas_certo[i2].save()
-                i += 1
-                if i == (len(salas_certo)-1):
-                    i = 0
-
-            i = 0
-            for pessoa in pessoas:
-                i2 = i+1
-                if i == (len(salascafe)-1):
-                    i2 = 0
+                salas_certo[i].etapa1.append(pessoa)
+                salas_certo[i].save()
                 salascafe[i].etapa1.append(pessoa)
-                salascafe[i2].etapa2.append(pessoa)
                 salascafe[i].save()
+                salascafe[i2].etapa1.append(pessoa)
                 salascafe[i2].save()
                 i += 1
-                if i == (len(salascafe)-1):
+                if i2 == 0:
                     i = 0
-        
-        print(self.pesquisa_pessoa(pessoas[0].id))
-        salas = self.busca_salas_da_pessoa(pessoas[0])
-        # print(salas[0])
 
+
+    
 
 
 
