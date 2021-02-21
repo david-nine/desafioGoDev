@@ -122,41 +122,100 @@ class DAO:
                 if sala.lotacao != None:
                     salas_certo.append(sala)  
 
+            # for sala in salas_certo:
+            #     sala.etapa1 = []
+            #     sala.etapa2 = []
+            #     sala.save()
+            
+            # for sala in salascafe:
+            #     sala.etapa1 = []
+            #     sala.etapa2 = []
+            #     sala.save()
+
             i = 0
             for pessoa in pessoas:
-                i2 = i+1
-                if i == (len(salas_certo)-1):
-                    i2 = 0
-                print("i = ", i)
-                print("i2 = ", i2)
-                # print(salas_certo[i2])
-                salas_certo[i2].etapa1.append(pessoa)
-                salas_certo[i2].save()
+                if i == (len(salas_certo)):
+                    i = 0
                 salas_certo[i].etapa1.append(pessoa)
                 salas_certo[i].save()
+                i += 1
+
+            i = 1
+            count = 0
+            for pessoa in pessoas:
+                i2 = i - 1
+                if i == 0:
+                    i2 = len(salas_certo)
+                if i == (len(salas_certo)):
+                    i = 0
+                if count == 1:
+                    salas_certo[i].etapa2.append(pessoa)
+                    salas_certo[i].save()
+                else:
+                    salas_certo[i2].etapa2.append(pessoa)
+                    salas_certo[i2].save()
+                i += 1
+                if count == 0:
+                    count = 1
+                else:
+                    count = 0
+            
+            i = 0
+            for pessoa in pessoas:
+                if i == (len(salascafe)):
+                    i = 0
                 salascafe[i].etapa1.append(pessoa)
                 salascafe[i].save()
-                salascafe[i2].etapa1.append(pessoa)
-                salascafe[i2].save()
                 i += 1
-                if i2 == 0:
+
+            i = 1
+            count = 0
+            for pessoa in pessoas:
+                i2 = i - 1
+                if i == 0:
+                    i2 = len(salascafe)
+                if i == (len(salascafe)):
                     i = 0
+                if count == 1:
+                    salascafe[i].etapa2.append(pessoa)
+                    salascafe[i].save()
+                else:
+                    salascafe[i2].etapa2.append(pessoa)
+                    salascafe[i2].save()
+                i += 1
+                if count == 0:
+                    count = 1
+                else:
+                    count = 0
 
-
-    
-
-
-
-
-        # quant_salas = len(lista_salas)
-        # quant_pessoas = len(lista_pessoas)
-        # val_for = quant_pessoas // quant_salas
-        # resto = quant_pessoas % quant_salas
-        # for sala in lista_salas:
-        #     sala.pessoa1 = []
-        #     sala.save()
-        # for count in range(0, val_for, quant_salas):
-        #     for i in range(len(lista_salas)):
-        #         sala = lista_salas[i]
-        #         pessoa = lista_pessoas[i+count]
-        #         sala.pessoas1.append(pessoa)
+            print(salas_certo[1].etapa1)
+            print(salascafe[1].etapa1) 
+            print(salas_certo[1].etapa2)
+            print(salascafe[1].etapa2)
+            
+            print("----------------------")
+            # i = 0
+            # count = 0
+            # for pessoa in pessoas:
+            #     print("i = ", i)
+            #     print("i2 = ", i2)
+            #     i2 = i+1
+            #     print("alooooooooooo", len(salas_certo))
+            #     if i == (len(salas_certo)-1):
+            #         i2 = 0
+            #     if count == 0:
+            #         salas_certo[i2].etapa1.append(pessoa)
+            #         salas_certo[i2].save()
+            #         salas_certo[i].etapa2.append(pessoa)
+            #         salas_certo[i].save()
+            #         salascafe[i].etapa2.append(pessoa)
+            #         salascafe[i].save()
+            #         salascafe[i2].etapa1.append(pessoa)
+            #         salascafe[i2].save()
+            #         i += 1
+            #         if i2 == 0:
+            #             i = 0
+            #     if count == 0:
+            #         count = 1
+            #     else:
+            #         count = 0

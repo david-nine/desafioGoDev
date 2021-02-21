@@ -94,6 +94,7 @@ class Sala(db.Model):
 
 
 
+
 # class SalaCafe(db.Model):
 #     '''Tabela SalaCafe
 
