@@ -80,9 +80,9 @@ class Sala(db.Model):
     '''
     nome = db.Column(db.String(200), primary_key=True)
     lotacao = db.Column(db.Integer, nullable=True)
-    etapa1 = db.relationship('Pessoa', secondary=pessoas1, lazy='subquery', 
+    pessoas1 = db.relationship('Pessoa', secondary=pessoas1, lazy='subquery', 
                              backref=db.backref('pessoas1', lazy=True))
-    etapa2 = db.relationship('Pessoa', secondary=pessoas2, lazy='subquery', 
+    pessoas2 = db.relationship('Pessoa', secondary=pessoas2, lazy='subquery', 
                              backref=db.backref('pessoas2', lazy=True))           
 
     def __repr__(self):
@@ -91,18 +91,3 @@ class Sala(db.Model):
     def save(self):
         db.session.merge(self)
         db.session.commit()
-
-
-
-
-# class SalaCafe(db.Model):
-#     '''Tabela SalaCafe
-
-#     Cria a tabela Sala no banco de dados e salva os dados.
-
-#     Atributes
-#     ---------
-#     nome : str
-#         nome da sala
-#     '''
-#     nome = db.Column(db.String(200), primary_key=True)

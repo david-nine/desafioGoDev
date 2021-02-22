@@ -2,16 +2,35 @@
 {%from "help.html" import render_field %}
 {% block main %}
 <style>
+    fieldset{
+        border: solid 2px #70747c;
+        text-align: center;
+        width: 40%;
+        margin: 0 auto;
+        padding: 2%;
+        margin-top: 3%;
+        border-radius: 5%;
+    }
     input[type=text]{
-        background-color: blue;
+        width: 100%;
+    }
+    h2{
+        font-size: 130%;
+    }
+    label{
+        margin-top: 1%;
+        margin-bottom: 1%;
     }
 </style>
 <div class="form">
 <form action="/cadastroSala" method="post">
-    {{form.csrf_token}}
-    {{render_field(form.nome)}}
-    {{render_field(form.lotacao)}}
-    {{form.submit}}
+    <fieldset>
+        <h2>Cadastro de salas</h2>
+        {{form.csrf_token}}
+        {{render_field(form.nome, class="form-control")}}
+        {{render_field(form.lotacao, class="form-control")}}
+        {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black;")}}
+    </fieldset>
 </form>
 </div>
 {% endblock %}

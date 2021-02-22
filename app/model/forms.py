@@ -91,9 +91,8 @@ class FormPesquisa(FlaskForm):
     def validate_nome(nome=None):
         Verifica se essa sala existe
     '''
-    nome = StringField("Buscar Sala", validators=[InputRequired("Informe o \
-                                                                 nome da sala")])
-    submit = SubmitField("Confirmar")
+    nome = StringField(validators=[InputRequired("Informe o nome da sala")])
+    submit = SubmitField("Buscar Sala")
 
     def validate_nome(self, nome):
 

@@ -95,10 +95,6 @@ class DAO:
         pessoa = Pessoa.query.filter_by(id=id).first()
         return pessoa
 
-    def busca_salas_da_pessoa(self, pessoa):
-        salas = Sala.query.with_parent(pessoa)
-        return salas
-
     def busca_pessoas(self):
         return Pessoa.query.all()
 
@@ -113,8 +109,8 @@ class DAO:
         em uma das salas de forma que as salas fiquem com o mesmo número
         de pessoas ou no máximo uma a mais. 
         '''
-        pessoas = Pessoa.query.all()
-        if pessoas:
+        pessoas = self.busca_pessoas()
+        if Pessoa.query.all():
             salascafe = Sala.query.filter_by(lotacao=None).all()
             salas = Sala.query.all()
             salas_certo = []
@@ -122,21 +118,21 @@ class DAO:
                 if sala.lotacao != None:
                     salas_certo.append(sala)  
             
-            # for sala in salas_certo:
-            #     sala.etapa1 = []
-            #     sala.etapa2 = []
-            #     sala.save()
+            for sala in salas_certo:
+                sala.pessoas1 = []
+                sala.pessoas2 = []
+                sala.save()
             
-            # for sala in salascafe:
-            #     sala.etapa1 = []
-            #     sala.etapa2 = []
-            #     sala.save()
+            for sala in salascafe:
+                sala.pessoas1 = []
+                sala.pessoas2 = []
+                sala.save()
 
             i = 0
             for pessoa in pessoas:
                 if i == (len(salas_certo)):
                     i = 0
-                salas_certo[i].etapa1.append(pessoa)
+                salas_certo[i].pessoas1.append(pessoa)
                 salas_certo[i].save()
                 i += 1
             
@@ -144,25 +140,8 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salascafe)):
                     i = 0
-                salascafe[i].etapa1.append(pessoa)
+                salascafe[i].pessoas1.append(pessoa)
                 salascafe[i].save()
-                i += 1
-
-            count = 0
-            i = 0 
-            for pessoa in pessoas:
-                if i == (len(salascafe)):
-                    i = 0
-                if count > len(pessoas)/2:
-                    if count == len(pessoas):
-                        i += 1
-                        if i == (len(salascafe)):
-                            i = 0
-                        salascafe[i].etapa2.append(pessoa)
-                else:
-                    salascafe[i].etapa2.append(pessoa)
-                salascafe[i].save()
-                count += 1
                 i += 1
 
             count = 0
@@ -170,74 +149,32 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salas_certo)):
                     i = 0
-                if count > len(pessoas)/2:
-                    if count == len(pessoas):
+                if count >= len(pessoas)//2:
+                    if count == len(pessoas)//2:
                         i += 1
-                        if i == (len(salas_certo)):
-                            i = 0
-                        salas_certo[i].etapa2.append(pessoa)
+                    if i == (len(salas_certo)):
+                        i = 0                   
+                    salas_certo[i].pessoas2.append(pessoa)
                 else:
-                    salas_certo[i].etapa2.append(pessoa)
+                    salas_certo[i].pessoas2.append(pessoa)
                 salas_certo[i].save()
                 count += 1
                 i += 1
-            # salas_cafe_troca = []
-            # salas_cafe_fica = []
-            # quant = len(salascafe) // 2
-            # for i in range(quant):
-            #     salas_cafe_troca.append(salascafe[i])
-            # quant = len(salascafe) - quant
-            # for i in range(quant, quant*2): 
-            #     salas_cafe_fica.append(salascafe[i])
-           
-            # quant = len(pessoas) // 2
-            # i = 0
-            # count = 0
-            # while count < quant:
-            #     if i == (len(salas_cafe_troca)):
-            #         i = 0
-            #     print(len(salas_cafe_troca))
-            #     salas_cafe_troca[i].etapa2.append(pessoas[count])
-            #     salas_cafe_troca[i].save()
-            #     count += 1
-            #     i += 1
-
-            # i = 1
-            # quant = len(pessoas) - quant
-            # while count < quant:
-            #     if i == (len(salas_cafe_fica)):
-            #         i = 0
-            #     salas_cafe_fica[i].etapa2.append(pessoas[count])
-            #     salas_cafe_fica[i].save()
-            #     count += 1
-            #     i += 1
-
-            # salas_troca = []
-            # salas_troca = []
-            # quant = len(salas_certo) // 2
-            # for i in range(quant):
-            #     salas_troca.append(salas_certo[i])
-            # quant = len(salas_certo) - quant
-            # for i in range(quant, quant*2): 
-            #     salas_troca.append(salas_certo[i])
-           
-            # quant = len(pessoas) // 2
-            # i = 0
-            # count = 0
-            # while count < quant:
-            #     if i == (len(salas_troca)):
-            #         i = 0
-            #     salas_troca[i].etapa2.append(pessoas[count])
-            #     salas_troca[i].save()
-            #     count += 1
-            #     i += 1
-
-            # i = 1
-            # quant = len(pessoas) - quant
-            # while count < quant:
-            #     if i == (len(salas_troca)):
-            #         i = 0
-            #     salas_troca[i].etapa2.append(pessoas[count])
-            #     salas_troca[i].save()
-            #     count += 1
-            #     i += 1
+            
+            
+            count = 0
+            i = 0 
+            for pessoa in pessoas:
+                if i == (len(salascafe)):
+                    i = 0
+                if count >= len(pessoas)//2:
+                    if count == len(pessoas)//2:
+                        i += 1
+                    if i == (len(salascafe)):
+                        i = 0
+                    salascafe[i].pessoas2.append(pessoa)
+                else:
+                    salascafe[i].pessoas2.append(pessoa)
+                salascafe[i].save()
+                count += 1
+                i += 1

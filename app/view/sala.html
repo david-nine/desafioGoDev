@@ -1,15 +1,53 @@
 {% extends "base.html" %}
 {% block main %}
-<h2>Etapa 1</h2>
+<style>
+  .table tbody tr:hover{
+    background-color: lightgrey;
+  }
+  .table{
+    width: 42.5%;
+    border: solid 1px black;
+    margin-top: 2%;
+  }
+  .left{
+    width: 100%;
+    margin-left: 5%;
+    position: absolute;
+  }
+  .right{
+    margin-left: 52.5%;
+    position: absolute;
+    width: 100%;
+  }
+  h2{
+    margin-left: 15%;
+    margin-top: 3%;
+  }
+  #h1{
+    text-align: center; 
+    margin: 0 auto;
+    width: 70%;
+    margin-top: 3%;
+    background-color: #70747c;
+    font-family: sans-serif;
+    color: white;
+  }
+  th, td {
+    border: solid 1px black;
+  }
+</style>
+<h1 id="h1">Alunos da sala "{{sala.nome}}" em cada etapa</h1>
+<div class="left">
 <table class="table">
+  <h2>Etapa 1</h2>
     <thead>
       <tr>
-        <th scope="col">Nome Sala</th>
-        <th scope="col">Tipo</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sobrenome</th>
       </tr>
     </thead>
-    <tbody class="table-hover">
-    {% for pessoa in sala.etapa1 %}
+    <tbody">
+    {% for pessoa in pessoas1 %}
       <tr>  
         <td>{{pessoa.nome}}</td>
         <td>{{pessoa.sobrenome}}</td>
@@ -17,7 +55,10 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
+<div class="right">
 <table class="table">
+  <h2>Etapa 2</h2>
     <thead>
       <tr>
         <th scope="col">Nome Sala</th>
@@ -25,7 +66,7 @@
       </tr>
     </thead>
     <tbody class="table-hover">
-    {% for pessoa in sala.etapa2 %}
+    {% for pessoa in sala.pessoas2 %}
         <tr>  
         <td>{{pessoa.nome}}</td>
         <td>{{pessoa.sobrenome}}</td>
@@ -33,4 +74,5 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

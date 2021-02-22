@@ -1,42 +1,66 @@
 {% extends "base.html" %}
 {% block main %}
-<h2>Etapa 1</h2>
+<style>
+  .table tbody tr:hover{
+    background-color: lightgrey;
+  }
+  .table{
+    width: 65%;
+    border: solid 1px black;
+    margin: 0 auto;
+    margin-top: 1%;
+  }
+  h2{
+    text-align: center;
+    margin-top: 3%;
+  }
+  th, td {
+    border: solid 1px black;
+  }
+</style>
 <table class="table">
+  <h2>Etapa 1</h2>
     <thead>
       <tr>
-        <th scope="col">Nome Sala</th>
-        <th scope="col">Tipo</th>
+        <th style="width: 20%;" scope="col"></th>
+        <th scope="col">Nome</th>
+        <th scope="col" style="width: 5%;">Lotação</th>
       </tr>
     </thead>
-    <tbody class="table-hover">
+    <tbody">
+      <tr>  
+        <td style="font-weight: bold;">Sala</td>
+        <td>{{pessoa.pessoas1[0].nome}}</td>
+        <td style="text-align: center;">{{pessoa.pessoas1[0].lotacao}}</td>
+      </tr>
       <tr>
-        <td>{{salas[0].nome}}</td>
-        <td>{{salas[0].lotacao}}</td>
+        <td style="font-weight: bold;">Espaço para café</td>
+        <td>{{pessoa.pessoas1[1].nome}}</td>
+        <td></td>
       </tr>
     </tbody>
-      <tr>
-        <td>{{salas[2].nome}}</td>
-        <td>aqui</td>
-      </tr>
-  </table>
-  <br><br>
-<h2>Etapa 2</h2>
+</table>
+
 <table class="table">
+  <h2>Etapa 2</h2>
     <thead>
       <tr>
+        <th style="width: 20%;" scope="col"></th>
         <th scope="col">Nome Sala</th>
-        <th scope="col">Tipo</th>
+        <th scope="col" style="width: 5%;">Lotação</th>
       </tr>
     </thead>
-    <tbody class="table-hover">
+    <tbody class="table">
+        <tr>  
+          <td style="font-weight: bold;">Sala</td>
+          <td>{{pessoa.pessoas2[0].nome}}</td>
+          <td style="text-align: center;">{{pessoa.pessoas1[0].lotacao}}</td>
+        </tr>
       <tr>
-        <th scope="row">{{salas[1].nome}}</th>
-        <td>{{salas[1].lotacao}}</td>
-      </tr>
-      <tr>
-        <th scope="row">{{salas[3].nome}}</th>
-        <td>nada</td>
+        <td style="font-weight: bold;">Espaço para café</td>
+        <th>{{pessoa.pessoas2[1].nome}}</th>
+        <td></td>
       </tr>
     </tbody>
-  </table>
+</table>
 {% endblock %}
