@@ -6,14 +6,14 @@ Arquivo contendo as tabelas de pessoa e sala para a criação do banco de
 dados.
 '''
 
-pessoas = db.Table('pessoas',
+pessoas1 = db.Table('pessoas1',
     db.Column('pessoa_id', db.Integer, db.ForeignKey('pessoa.id'), primary_key=True),
-    db.Column('sala_nome', db.String(200), db.ForeignKey('sala.nome'), primary_key=True),
+    db.Column('etapa1_nome', db.String(200), db.ForeignKey('sala.nome'), primary_key=True),
 )
-# pessoas2 = db.Table('pessoas2',
-#     db.Column('pessoa_id', db.Integer, db.ForeignKey('pessoa.id'), primary_key=True),
-#     db.Column('sala_nome', db.String(200), db.ForeignKey('sala.nome'), primary_key=True),
-# )
+pessoas2 = db.Table('pessoas2',
+    db.Column('pessoa_id', db.Integer, db.ForeignKey('pessoa.id'), primary_key=True),
+    db.Column('etapa2_nome', db.String(200), db.ForeignKey('sala.nome'), primary_key=True),
+)
 
 class Pessoa(db.Model):
     '''Tabela Pessoa
@@ -80,10 +80,10 @@ class Sala(db.Model):
     '''
     nome = db.Column(db.String(200), primary_key=True)
     lotacao = db.Column(db.Integer, nullable=True)
-    etapa1 = db.relationship('Pessoa', secondary=pessoas, lazy='subquery', 
-                             backref=db.backref('salas1', lazy=True))
-    etapa2 = db.relationship('Pessoa', secondary=pessoas, lazy='subquery', 
-                             backref=db.backref('salas2', lazy=True))           
+    etapa1 = db.relationship('Pessoa', secondary=pessoas1, lazy='subquery', 
+                             backref=db.backref('pessoas1', lazy=True))
+    etapa2 = db.relationship('Pessoa', secondary=pessoas2, lazy='subquery', 
+                             backref=db.backref('pessoas2', lazy=True))           
 
     def __repr__(self):
         return f"Sala('{self.nome}', '{self.lotacao}')"

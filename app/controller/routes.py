@@ -20,17 +20,17 @@ def index():
     if form.validate_on_submit():
         return redirect('verSala/'+form.nome.data)
     
-    for i in range(20):
+    for i in range(10):
         nome = 'pessoa'+str(i)
         pessoa = Pessoa(nome=nome, sobrenome='sobrenome')
         DAO.create(pessoa)
 
-    for i in range(5):
+    for i in range(2):
         nome = 'sala 0'+str(i)
         sala = Sala(nome=nome, lotacao='15')
         DAO.create(sala)
 
-    for i in range(5):
+    for i in range(2):
         nome = 'sala cafe 0'+str(i)
         sala = Sala(nome=nome)
         DAO.create(sala)

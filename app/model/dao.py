@@ -121,7 +121,7 @@ class DAO:
             for sala in salas:
                 if sala.lotacao != None:
                     salas_certo.append(sala)  
-
+            
             # for sala in salas_certo:
             #     sala.etapa1 = []
             #     sala.etapa2 = []
@@ -139,26 +139,6 @@ class DAO:
                 salas_certo[i].etapa1.append(pessoa)
                 salas_certo[i].save()
                 i += 1
-
-            i = 1
-            count = 0
-            for pessoa in pessoas:
-                i2 = i - 1
-                if i == 0:
-                    i2 = len(salas_certo)
-                if i == (len(salas_certo)):
-                    i = 0
-                if count == 1:
-                    salas_certo[i].etapa2.append(pessoa)
-                    salas_certo[i].save()
-                else:
-                    salas_certo[i2].etapa2.append(pessoa)
-                    salas_certo[i2].save()
-                i += 1
-                if count == 0:
-                    count = 1
-                else:
-                    count = 0
             
             i = 0
             for pessoa in pessoas:
@@ -168,54 +148,96 @@ class DAO:
                 salascafe[i].save()
                 i += 1
 
-            i = 1
             count = 0
+            i = 0 
             for pessoa in pessoas:
-                i2 = i - 1
-                if i == 0:
-                    i2 = len(salascafe)
                 if i == (len(salascafe)):
                     i = 0
-                if count == 1:
+                if count > len(pessoas)/2:
+                    if count == len(pessoas):
+                        i += 1
+                        if i == (len(salascafe)):
+                            i = 0
+                        salascafe[i].etapa2.append(pessoa)
+                else:
                     salascafe[i].etapa2.append(pessoa)
-                    salascafe[i].save()
-                else:
-                    salascafe[i2].etapa2.append(pessoa)
-                    salascafe[i2].save()
+                salascafe[i].save()
+                count += 1
                 i += 1
-                if count == 0:
-                    count = 1
-                else:
-                    count = 0
 
-            print(salas_certo[1].etapa1)
-            print(salascafe[1].etapa1) 
-            print(salas_certo[1].etapa2)
-            print(salascafe[1].etapa2)
-            
-            print("----------------------")
+            count = 0
+            i = 0 
+            for pessoa in pessoas:
+                if i == (len(salas_certo)):
+                    i = 0
+                if count > len(pessoas)/2:
+                    if count == len(pessoas):
+                        i += 1
+                        if i == (len(salas_certo)):
+                            i = 0
+                        salas_certo[i].etapa2.append(pessoa)
+                else:
+                    salas_certo[i].etapa2.append(pessoa)
+                salas_certo[i].save()
+                count += 1
+                i += 1
+            # salas_cafe_troca = []
+            # salas_cafe_fica = []
+            # quant = len(salascafe) // 2
+            # for i in range(quant):
+            #     salas_cafe_troca.append(salascafe[i])
+            # quant = len(salascafe) - quant
+            # for i in range(quant, quant*2): 
+            #     salas_cafe_fica.append(salascafe[i])
+           
+            # quant = len(pessoas) // 2
             # i = 0
             # count = 0
-            # for pessoa in pessoas:
-            #     print("i = ", i)
-            #     print("i2 = ", i2)
-            #     i2 = i+1
-            #     print("alooooooooooo", len(salas_certo))
-            #     if i == (len(salas_certo)-1):
-            #         i2 = 0
-            #     if count == 0:
-            #         salas_certo[i2].etapa1.append(pessoa)
-            #         salas_certo[i2].save()
-            #         salas_certo[i].etapa2.append(pessoa)
-            #         salas_certo[i].save()
-            #         salascafe[i].etapa2.append(pessoa)
-            #         salascafe[i].save()
-            #         salascafe[i2].etapa1.append(pessoa)
-            #         salascafe[i2].save()
-            #         i += 1
-            #         if i2 == 0:
-            #             i = 0
-            #     if count == 0:
-            #         count = 1
-            #     else:
-            #         count = 0
+            # while count < quant:
+            #     if i == (len(salas_cafe_troca)):
+            #         i = 0
+            #     print(len(salas_cafe_troca))
+            #     salas_cafe_troca[i].etapa2.append(pessoas[count])
+            #     salas_cafe_troca[i].save()
+            #     count += 1
+            #     i += 1
+
+            # i = 1
+            # quant = len(pessoas) - quant
+            # while count < quant:
+            #     if i == (len(salas_cafe_fica)):
+            #         i = 0
+            #     salas_cafe_fica[i].etapa2.append(pessoas[count])
+            #     salas_cafe_fica[i].save()
+            #     count += 1
+            #     i += 1
+
+            # salas_troca = []
+            # salas_troca = []
+            # quant = len(salas_certo) // 2
+            # for i in range(quant):
+            #     salas_troca.append(salas_certo[i])
+            # quant = len(salas_certo) - quant
+            # for i in range(quant, quant*2): 
+            #     salas_troca.append(salas_certo[i])
+           
+            # quant = len(pessoas) // 2
+            # i = 0
+            # count = 0
+            # while count < quant:
+            #     if i == (len(salas_troca)):
+            #         i = 0
+            #     salas_troca[i].etapa2.append(pessoas[count])
+            #     salas_troca[i].save()
+            #     count += 1
+            #     i += 1
+
+            # i = 1
+            # quant = len(pessoas) - quant
+            # while count < quant:
+            #     if i == (len(salas_troca)):
+            #         i = 0
+            #     salas_troca[i].etapa2.append(pessoas[count])
+            #     salas_troca[i].save()
+            #     count += 1
+            #     i += 1
