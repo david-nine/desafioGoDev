@@ -33,9 +33,6 @@ class Pessoa(db.Model):
 
     Methods
     -------
-    def create(pessoa=None):
-        Cria uma nova Pessoa no banco
-    
     def save():
         Salva as novas informações da Pessoa no banco de dados
     '''
@@ -48,6 +45,8 @@ class Pessoa(db.Model):
         return f"Pessoa('{self.id}', '{self.nome}', '{self.sobrenome}')"
 
     def save(self):
+        '''Salva as novas informações da Pessoa no banco de dados
+        '''
         db.session.merge(self)
         db.sessin.commit()
 
@@ -64,17 +63,14 @@ class Sala(db.Model):
     lotacao : str
         capacidade de pessoas na sala
 
-    etapa1 : list
+    pessoas1 : list
         lista de pessoas na sala durante a primeira etapa
     
-    etapa2 : list
+    pessoas2 : list
         lista de pessoas na sala durante a segunda etapa
     
     Methods
     -------
-    def create(sala=None):
-        Cria uma nova pessoa no banco
-
     def save():
         Salva as novas informações da Sala no banco de dados
     '''
@@ -89,5 +85,7 @@ class Sala(db.Model):
         return f"Sala('{self.nome}', '{self.lotacao}')"
 
     def save(self):
+        '''Salva as novas informações da Sala no banco de dados
+        '''
         db.session.merge(self)
         db.session.commit()

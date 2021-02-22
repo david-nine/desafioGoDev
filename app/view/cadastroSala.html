@@ -11,9 +11,7 @@
         margin-top: 3%;
         border-radius: 5%;
     }
-    input[type=text]{
-        width: 100%;
-    }
+
     h2{
         font-size: 130%;
     }
@@ -22,12 +20,13 @@
         margin-bottom: 1%;
     }
 </style>
+
 <div class="form">
 <form action="/cadastroSala" method="post">
     <fieldset>
         <h2>Cadastro de salas</h2>
         {{form.csrf_token}}
-        {{render_field(form.nome, class="form-control")}}
+        {{render_field(form.nomesala, class="form-control")}}
         {{render_field(form.lotacao, class="form-control")}}
         {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black;")}}
     </fieldset>

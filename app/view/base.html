@@ -1,3 +1,4 @@
+{%from "help.html" import render_field %}
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -22,9 +23,8 @@
             text-decoration: none;
             color: white;
         }
-
         ul a {
-            font-size: 125%;
+            font-size: 130%;
             text-decoration: none;
             color: white;
             border-bottom: solid 4px #70747c;
@@ -72,10 +72,15 @@
                             café</a>
                     </li>
                 </ul>
+                <style>
+                    label{
+                        color: #70747c;
+                    }
+                </style>
                 <form action="/index" method="post" class="d-flex" style="margin-right: 3%;">
                     {{pesquisa.csrf_token}}
-                    {{pesquisa.nome}}
-                    {{pesquisa.submit(class="btn btn-light btn-sm", style="padding: 2%; margin-left: 3%;")}}
+                    {{render_field(pesquisa.nomepesquisa)}}
+                    {{pesquisa.buscar(class="btn btn-light btn-sm", style="margin-left: 2%; height: 1%;")}}
                 </form>
             </div>
         </div>

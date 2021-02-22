@@ -18,12 +18,9 @@ def index():
     '''
     pesquisa = FormPesquisa()
     if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
-    
+        return redirect('verSala/'+pesquisa.nomepesquisa.data)
     DAO.organizar_pessoas()
-
     pessoas = DAO.busca_pessoas()
-    
     return render_template('index.html', pesquisa=pesquisa, pessoas=pessoas)
 
 @app.route('/cadastroPessoa', methods=['get', 'post'])
@@ -33,8 +30,6 @@ def cadastro_pessoa():
     Página com o formulário para cadstro de pessoas.
     '''
     pesquisa = FormPesquisa()
-    if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
     form = FormPessoa()
     if form.validate_on_submit():
         DAO.cadastrar_pessoa(form)
@@ -49,8 +44,6 @@ def cadastro_sala():
     Página com o formulário para cadastro de salas.
     '''
     pesquisa = FormPesquisa()
-    if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
     form = FormSala()
     if form.validate_on_submit():
         DAO.cadastrar_sala(form)
@@ -71,8 +64,6 @@ def ver_sala(sala):
         nome da sala 
     '''
     pesquisa = FormPesquisa()
-    if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
     sala = DAO.pesquisa_sala(sala)
     pessoas1 = sala.pessoas1
     pessoas2 = sala.pessoas2
@@ -86,8 +77,6 @@ def cadastro_cafe():
     Página com o formulário para cadastro de salas de café.
     '''
     pesquisa = FormPesquisa()
-    if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
     form = FormCafe()
     if form.validate_on_submit():
         DAO.cadastrar_salacafe(form)
@@ -96,11 +85,16 @@ def cadastro_cafe():
 
 @app.route('/verPessoa/<id>', methods=['get', 'post'])
 def ver_pessoa(id):
+    '''Tela que mostra as informações da pessoa
+
+    Carrega as salas que a pessoa vai ficar na etapa 1 e na etapa 2 
+
+    Parrameters
+    -----------
+    id : int
+        número do id da pessoa
+    '''
     pessoa = DAO.pesquisa_pessoa(id)
-    print(pessoa.pessoas1)
-    print(pessoa.pessoas2)
     pesquisa = FormPesquisa()
-    if pesquisa.validate_on_submit():
-        return redirect('verSala/'+pesquisa.nome.data)
 
     return render_template('pessoa.html', pessoa=pessoa, pesquisa=pesquisa)

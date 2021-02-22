@@ -11,10 +11,6 @@
         margin-top: 3%;
         border-radius: 5%;
     }
-
-    input[type=text]{
-        width: 100%;
-    }
     h2{
         font-size: 130%;
     }
@@ -27,7 +23,7 @@
 <form action="/cadastroCafe" method="post" class="formulario">
     <h2>Cadastro de sals de café</h2>
     {{form.csrf_token}}
-    {{render_field(form.nome, class="form-control")}}
+    {{render_field(form.nomecafe, class="form-control")}}
     {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black;")}}
 </form>
 </div>

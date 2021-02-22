@@ -17,18 +17,27 @@ class DAO:
     def cadastrar_pessoa(form=None):
         Cadastra uma nova pessoa.
 
-    def cadastrar_sala(form):
+    def cadastrar_sala(form=None):
         Cadastra uma nova sala.
+
+    def cadastrar_salacafe(form=None):
+        Cadastra um novo espaço para café
     
-    def pesquisa_sala(form):
+    def pesquisa_sala(form=None):
         Pesquisa a sala desejada no banco.
     
-    def pesquisa_pessoa(id):
+    def pesquisa_pessoa(id=None):
         Pesquisa o aluno desejado no banco.
 
     def organizar_pessoas():
         Faz a divisão das pessoas nas salas para as duas etapas e salva
         no banco
+
+    def busca_pessoas():
+        busca todas as pessoas do banco
+
+    def create(objeto=None):
+        Cria uma nova linha no banco na tabela do objeto passado
     '''
 
     def cadastrar_pessoa(self, form):
@@ -56,7 +65,7 @@ class DAO:
             formulário FormSala ou FormCafe com os dados da Sala que vai ser 
             cadastrada
         '''
-        nova_sala = Sala(nome=form.nome.data, lotacao=form.lotacao.data)
+        nova_sala = Sala(nome=form.nomesala.data, lotacao=form.lotacao.data)
         self.create(nova_sala)
         
 
@@ -70,22 +79,22 @@ class DAO:
             formulário FormCafe com os dados da SalaCafe que vai ser 
             cadastrada
         '''
-        nova_sala = Sala(nome=form.nome.data)
+        nova_sala = Sala(nome=form.nomecafe.data)
         self.create(nova_sala)
 
     def pesquisa_sala(self, nome):
-        '''Pesquisa a Sala com o nome passado pelo form
+        '''Pesquisa a Sala pelo nome
 
         Parameters
         ----------
-        form : FlaskForm
-            formulário FormCafe com o nome da sala procurada
+        nome : str
+            nome da sala pesquisada
         '''
         sala = Sala.query.filter_by(nome=nome).first()
         return sala
 
     def pesquisa_pessoa(self, id):
-        '''Pesquisa a Pessoa a partir do id
+        '''Pesquisa a uma Pessoa a partir do id
 
         Parameters
         ----------
@@ -96,9 +105,19 @@ class DAO:
         return pessoa
 
     def busca_pessoas(self):
+        '''Busca e retorna todas as pessoas cadastradas no banco
+        '''
         return Pessoa.query.all()
 
     def create(self, objeto):
+        '''Cria uma nova linha na tabela do objeto desejado apartir dos 
+        dados passados pelo objeto.
+
+        Parameters
+        ----------
+        objeto : Object
+            objeto do tipo Pessoa ou Sala 
+        '''
         db.session.add(objeto)
         db.session.commit()
 
@@ -132,6 +151,10 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salas_certo)):
                     i = 0
+                if salas_certo[i].lotacao == len(salas_certo[i].pessoas1):
+                    i +=1
+                    if i == len(salas_certo):
+                        i = 0
                 salas_certo[i].pessoas1.append(pessoa)
                 salas_certo[i].save()
                 i += 1
@@ -140,6 +163,10 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salascafe)):
                     i = 0
+                if salascafe[i].lotacao == len(salascafe[i].pessoas1):
+                    i +=1
+                    if i == len(salascafe):
+                        i = 0
                 salascafe[i].pessoas1.append(pessoa)
                 salascafe[i].save()
                 i += 1
@@ -149,6 +176,10 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salas_certo)):
                     i = 0
+                if salas_certo[i].lotacao == len(salas_certo[i].pessoas2):
+                    i +=1
+                    if i == len(salas_certo):
+                        i = 0 
                 if count >= len(pessoas)//2:
                     if count == len(pessoas)//2:
                         i += 1
@@ -167,6 +198,10 @@ class DAO:
             for pessoa in pessoas:
                 if i == (len(salascafe)):
                     i = 0
+                if salascafe[i].lotacao == len(salascafe[i].pessoas2):
+                    i +=1
+                    if i == len(salascafe):
+                        i = 0
                 if count >= len(pessoas)//2:
                     if count == len(pessoas)//2:
                         i += 1

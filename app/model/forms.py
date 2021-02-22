@@ -48,7 +48,7 @@ class FormSala(FlaskForm):
     def validate_nome(nome=None):
         verifica se ja existe uma sala com esse nome
     '''
-    nome = StringField("Nome", validators=[InputRequired("Informe um\
+    nomesala = StringField("Nome", validators=[InputRequired("Informe um\
                                                           nome para a sala")])
 
     lotacao = IntegerField("Lotação",
@@ -56,8 +56,8 @@ class FormSala(FlaskForm):
                                                       máxima da sala')])
     submit = SubmitField("Confirmar")
 
-    def validate_nome(self, nome):
-        if Sala.query.filter_by(nome=nome.data).first():
+    def validate_nomesala(self, nomesala):
+        if Sala.query.filter_by(nome=nomesala.data).first():
             raise ValidationError('Já existe uma sala com este nome')
 
 class FormCafe(FlaskForm):
@@ -71,13 +71,11 @@ class FormCafe(FlaskForm):
     def validate_nome(nome=None):
         verifica se já existe uma sala com esse nome
     '''
-    nome = StringField("Nome", validators=[InputRequired("Informe um \
+    nomecafe = StringField("Nome", validators=[InputRequired("Informe um \
                                                           nome para a sala")])
     submit = SubmitField("Confirmar")
-
-
-    def validate_nome(self, nome):
-        if Sala.query.filter_by(nome=nome.data).first():
+    def validate_nomecafe(self, nomecafe):
+        if Sala.query.filter_by(nome=nomecafe.data).first():
             raise ValidationError('Já existe uma sala com este nome')
 
 class FormPesquisa(FlaskForm):
@@ -91,10 +89,9 @@ class FormPesquisa(FlaskForm):
     def validate_nome(nome=None):
         Verifica se essa sala existe
     '''
-    nome = StringField(validators=[InputRequired("Informe o nome da sala")])
-    submit = SubmitField("Buscar Sala")
+    nomepesquisa = StringField(validators=[InputRequired("Informe o nome da sala")])
+    buscar = SubmitField("Buscar Sala")
 
-    def validate_nome(self, nome):
-
-        if not Sala.query.filter_by(nome=nome.data).first():
+    def validate_nomepesquisa(self, nomepesquisa):
+        if not Sala.query.filter_by(nome=nomepesquisa.data).first():
             raise ValidationError('Esta sala não existe')
