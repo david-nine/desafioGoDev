@@ -193,8 +193,7 @@ class DAO:
                 i += 1
             
             
-            count = 0
-            i = 0 
+            i = 0
             for pessoa in pessoas:
                 if i == (len(salascafe)):
                     i = 0
@@ -202,14 +201,6 @@ class DAO:
                     i +=1
                     if i == len(salascafe):
                         i = 0
-                if count >= len(pessoas)//2:
-                    if count == len(pessoas)//2:
-                        i += 1
-                    if i == (len(salascafe)):
-                        i = 0
-                    salascafe[i].pessoas2.append(pessoa)
-                else:
-                    salascafe[i].pessoas2.append(pessoa)
+                salascafe[i].pessoas2.append(pessoa)
                 salascafe[i].save()
-                count += 1
                 i += 1

@@ -2,6 +2,7 @@ from app import app
 from app.model.dao import DAO
 from app.model.models import Pessoa, Sala
 from app.model.forms import FormCafe, FormPessoa, FormSala
+# from app import db
 
 DAO = DAO()
 
@@ -38,6 +39,30 @@ DAO = DAO()
 #     sala = Sala.query.filter_by(nome='cafe_test').first()
 #     assert 'Nome da sala' == form.nomecafe.data
 
+# def test_organizar_pessoas():
+#     '''Testa de a função DAO.organizar_pessoas separa as pessoas em suas
+#     salas e altera na segunda etapa
+#     '''
+#     pessoa = Pessoa(nome='pessoa1', sobrenome='sobrenome')
+#     DAO.create(pessoa)
+#     pessoa2 = Pessoa(nome='pessoa2', sobrenome='sobrenome')
+#     DAO.create(pessoa2)
+#     sala = Sala(nome='sala1', lotacao=15)
+#     DAO.create(sala)
+#     sala2 = Sala(nome="sala2", lotacao=10)
+#     DAO.create(sala2)
+#     sala3 = Sala(nome="sala2")
+#     DAO.create(sala3)
+#     sala4 = Sala(nome="sala2")
+#     DAO.create(sala4)
+#     DAO.organizar_pessoas()
+#     result = (pessoa, pessoa2)
+#     result2 = (pessoa2, pessoa)
+#     salas = Sala.query.all()
+#     sala1 = salas[0]
+#     sala2 = salas[2]
+#     assert result1 == sala1.pessoas1 and result2 == sala2.pessoas2
+
 def test_pesquisa_sala():
     '''Testa se a função DAO.pesquisa_sala retorna a sala a partir do
     nome 
@@ -66,9 +91,3 @@ def test_create():
     result = Sala(nome='teste create')
     DAO.create(result)
     assert result == Sala.query.filter_by(nome='teste create').first()
-
-def test_organizar_pessoas():
-    '''Testa de a função DAO.organizar_pessoas separa as pessoas em suas
-    salas e altera na segunda etapa
-    '''
-    assert True
