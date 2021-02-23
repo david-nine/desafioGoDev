@@ -27,8 +27,9 @@
         <h2>Cadastro de salas</h2>
         {{form.csrf_token}}
         {{render_field(form.nomesala, class="form-control")}}
-        {{render_field(form.lotacao, class="form-control")}}
-        {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black;")}}
+        <br>
+        {{render_field(form.lotacao, class="form-control", pattern="[0-9]+$", inputmode="numeric")}}
+        {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black; margin-top: 5%;")}}
     </fieldset>
 </form>
 </div>

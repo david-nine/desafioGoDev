@@ -18,13 +18,16 @@
         margin-top: 1%;
         margin-bottom: 1%;
     }
+    p{
+        margin-bottom: 1%;
+    }
 </style>
 <div class="form">
 <form action="/cadastroCafe" method="post" class="formulario">
     <h2>Cadastro de sals de café</h2>
     {{form.csrf_token}}
     {{render_field(form.nomecafe, class="form-control")}}
-    {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black;")}}
+    {{form.submit(class="btn btn-light btn-sm", style="border: solid 1px black; margin-top: 5%;")}}
 </form>
 </div>
 {% endblock %}

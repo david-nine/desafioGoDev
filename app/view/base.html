@@ -79,7 +79,7 @@
                 </style>
                 <form action="/index" method="post" class="d-flex" style="margin-right: 3%;">
                     {{pesquisa.csrf_token}}
-                    {{render_field(pesquisa.nomepesquisa)}}
+                    {{render_field(pesquisa.nomepesquisa, placeholder="Nome da sala")}}
                     {{pesquisa.buscar(class="btn btn-light btn-sm", style="margin-left: 2%; height: 1%;")}}
                 </form>
             </div>

@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
-from wtforms.validators import InputRequired, ValidationError
-from app import db
+from wtforms.validators import InputRequired, ValidationError, NumberRange
 from app.model.models import Sala, Pessoa
 
 '''
@@ -27,11 +26,27 @@ class FormPessoa(FlaskForm):
     submit = SubmitField("Confirmar")
 
     def validate_nome(self, nome):
-        if not Sala.query.all():
-            raise ValidationError('Não existem salas')
-        if len(Sala.query.all()) < 2:
-            raise ValidationError('Não há salas suficientes para o\
-                                    cadastro de pessoas')
+        salas = Sala.query.all()
+        salas_certo = []
+        salas_cafe = []
+        for sala in salas:
+            if sala.lotacao != None:
+                salas_certo.append(sala) 
+            else:
+                salas_cafe.append(sala)
+        if not salas_certo:
+            raise ValidationError("Não existem salas")
+        elif not salas_cafe:
+            raise ValidationError("Não existem espaços de café")
+        elif salas_certo:
+            if len(salas_certo) < 2:
+                raise ValidationError("Não há salas sificientes para o\
+                                      cadastro")
+        elif salas_cafe:
+            if len(salas_cafe) < 2:
+                raise ValidationError("Não há salas de café suficientes\
+                                      para o cadastro")
+        
     
 
 class FormSala(FlaskForm):
@@ -53,7 +68,9 @@ class FormSala(FlaskForm):
 
     lotacao = IntegerField("Lotação",
                            validators=[InputRequired('Informe a lotação\
-                                                      máxima da sala')])
+                                                      máxima da sala'), 
+                                       NumberRange(min=1, message='No mínimo\
+                                                   uma pessoa na sala')])
     submit = SubmitField("Confirmar")
 
     def validate_nomesala(self, nomesala):

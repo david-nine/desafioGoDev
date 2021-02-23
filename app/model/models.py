@@ -44,12 +44,6 @@ class Pessoa(db.Model):
     def __repr__(self):
         return f"Pessoa('{self.id}', '{self.nome}', '{self.sobrenome}')"
 
-    def save(self):
-        '''Salva as novas informações da Pessoa no banco de dados
-        '''
-        db.session.merge(self)
-        db.sessin.commit()
-
 class Sala(db.Model):
     '''Tabela Sala
 
