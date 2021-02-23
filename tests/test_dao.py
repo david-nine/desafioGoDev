@@ -2,7 +2,6 @@ from app import app
 from app.model.dao import DAO
 from app.model.models import Pessoa, Sala
 from app.model.forms import FormCafe, FormPessoa, FormSala
-# from app import db
 
 DAO = DAO()
 

@@ -11,13 +11,16 @@ ficar em cada uma das etapas e a sala de café de cada intervalo.
 Também se pode pesquisar uma sala ou espaço de café, retornando a lista
 de pessoas que vão estar neste espaço em cada etapa.
 
+Para poder cadastrar pessoas é necessário ter no mínimo duas salas e dois
+espaços de café para poder fazer a divisão das pessoas entra as salas.
+
 ## Instalação
 
 - Baixar [Python 3](https://www.python.org/downloads/)
 - Clonar o repositório
 - instalar o arquivo **requirements.txt**
 
-    ```python -m pip install requirements.txt```
+    ```install requirements.txt```
 - Executar o arquivo **start_bd.py**
 - Executar o arquivo **inicializador.py**
 
@@ -43,3 +46,13 @@ com a sala que a pessoa vai ficar e o espaço de café.
 
 Esta tela contém duas tabelas uma para cada etapa com a lista de pessoas
 que vai ficar nesta sala em cada uma das etapas.
+
+## Tests
+
+Para rodar os testes, execute o arquivo start_bd.py
+
+Execute os seguintes comandos no terminal:
+
+    ```pip install -U pytest```
+
+    ```python -m pytest```
