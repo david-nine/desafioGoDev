@@ -129,7 +129,7 @@ class DAO:
         de pessoas ou no máximo uma a mais. 
         '''
         pessoas = self.busca_pessoas()
-        if Pessoa.query.all():
+        if pessoas:
             salascafe = Sala.query.filter_by(lotacao=None).all()
             salas = Sala.query.all()
             salas_certo = []
@@ -193,7 +193,7 @@ class DAO:
                 i += 1
             
             
-            i = 0
+            i = 1
             for pessoa in pessoas:
                 if i == (len(salascafe)):
                     i = 0

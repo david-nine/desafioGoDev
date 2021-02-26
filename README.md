@@ -52,7 +52,7 @@ que vai ficar nesta sala em cada uma das etapas.
 Para rodar os testes, execute o arquivo start_bd.py
 
 Execute os seguintes comandos no terminal:
-
+   
     ```pip install -U pytest```
 
     ```python -m pytest```

@@ -13,14 +13,3 @@ def test_save_sala():
     SALA.save()
     sala_alterada = Sala.query.filter_by(nome=result).first()
     assert result == sala_alterada.nome
-
-# def test_save_pessoa():
-#     '''Verifica se a função Pessoa.save() está as novas informações da 
-#     Pessoa no banco de dados.
-#     '''
-#     result = 'nome_alterado'
-#     PESSOA.nome = result
-#     PESSOA.save()
-#     pessoa_alterada = Pessoa.query.filter_by(nome=result).first()
-#     assert result == pessoa_alterada.nome
-

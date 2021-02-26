@@ -5,77 +5,30 @@ from app.model.forms import FormCafe, FormPessoa, FormSala
 
 DAO = DAO()
 
-# def test_cadastrar_sala():
-#     '''testa se a função DAO.cadastrar_sala cadastra a sala no banco    
-#     '''
-
-#     result = Sala(nome='salateste', lotacao=15)
-#     form = FormSala(nome='salateste', lotacao=15)
-#     DAO.cadastrar_sala(form)
-#     sala = Sala.query.filter_by(nome=nome).first()
-#     assert result == sala
-
-
-# def test_cadastrar_pessoa():
-#     '''testa se a função DAO.cadastrar_pessoa cadastra a pessoa no banco
-#     '''
-#     result = Pessoa(nome='pessoa', sobrenome='teste')
-#     form = FormPessoa()
-#     form.nome.data = 'pessoa'
-#     form.sobrenome.data = 'teste'
-#     DAO.cadastrar_pessoa(form)
-#     pessoa = Pessoa.query.filter_by(nome=nome).first()
-#     assert result == pessoa
-
-# def test_cadastra_cafe():
-#     '''testa se a função DAO.cadastrar_cafe cadastra a sala pra café
-#     no banco
-#     '''
-#     result = Sala(nome='Nome da sala')
-#     form = FormCafe()
-#     form.nomecafe.data = "Nome da sala"
-#     DAO.cadastrar_cafe(form)
-#     sala = Sala.query.filter_by(nome='cafe_test').first()
-#     assert 'Nome da sala' == form.nomecafe.data
-
-# def test_organizar_pessoas():
-#     '''Testa de a função DAO.organizar_pessoas separa as pessoas em suas
-#     salas e altera na segunda etapa
-#     '''
-#     pessoa = Pessoa(nome='pessoa1', sobrenome='sobrenome')
-#     DAO.create(pessoa)
-#     pessoa2 = Pessoa(nome='pessoa2', sobrenome='sobrenome')
-#     DAO.create(pessoa2)
-#     sala = Sala(nome='sala1', lotacao=15)
-#     DAO.create(sala)
-#     sala2 = Sala(nome="sala2", lotacao=10)
-#     DAO.create(sala2)
-#     sala3 = Sala(nome="sala2")
-#     DAO.create(sala3)
-#     sala4 = Sala(nome="sala2")
-#     DAO.create(sala4)
-#     DAO.organizar_pessoas()
-#     result = (pessoa, pessoa2)
-#     result2 = (pessoa2, pessoa)
-#     salas = Sala.query.all()
-#     sala1 = salas[0]
-#     sala2 = salas[2]
-#     assert result1 == sala1.pessoas1 and result2 == sala2.pessoas2
+def test_create():
+    '''Testa se a função DAO.create() adiciona um novo objeto no banco
+    '''
+    result = Sala(nome='sala 01', lotacao=15)
+    DAO.create(result)
+    assert result == Sala.query.filter_by(nome='sala 01').first()
 
 def test_pesquisa_sala():
     '''Testa se a função DAO.pesquisa_sala retorna a sala a partir do
     nome 
     '''
-    result = Sala(nome='nome')
+    result = Sala(nome='sala 02', lotacao=15)
     DAO.create(result)
-    assert result == DAO.pesquisa_sala('nome')
+    assert result == DAO.pesquisa_sala('sala 02')
 
 def test_pesquisa_pessoa():
     '''Testa se a função DAO.pesquisa_pessoa retorna a pessoa a partir
     do id 
     '''
-    result = Pessoa.query.filter_by(nome='pessoa').first()
-    assert result == DAO.pesquisa_pessoa(0)
+    pessoa = Pessoa(nome='pessoa 01', sobrenome='teste')
+    DAO.create(pessoa)
+    pessoa_id = pessoa.id
+    result = Pessoa.query.filter_by(nome='pessoa 01').first()
+    assert result == DAO.pesquisa_pessoa(pessoa_id)
 
 def test_busca_pessoas():
     '''Testa se a função DAO.pesquisa_pessoa retorna todas as pessoas do 
@@ -84,9 +37,21 @@ def test_busca_pessoas():
     result = Pessoa.query.all()
     assert DAO.busca_pessoas() == result
 
-def test_create():
-    '''Testa se a função DAO.create() adiciona um novo objeto no banco
+def test_organizar_pessoas():
+    '''Testa de a função DAO.organizar_pessoas separa as pessoas em suas
+    salas e altera na segunda etapa
     '''
-    result = Sala(nome='teste create')
-    DAO.create(result)
-    assert result == Sala.query.filter_by(nome='teste create').first()
+    sala3 = Sala(nome="sala cafe 01")
+    DAO.create(sala3)
+    sala4 = Sala(nome="sala cafe 02")
+    DAO.create(sala4)
+    DAO.organizar_pessoas()
+    pessoa_result = Pessoa(nome='pessoa_result', sobrenome='test')
+    salas =  Sala.query.filter_by(lotacao=15)
+    pessoa_result.pessoas1.append(salas[0])
+    pessoa_result.pessoas2.append(salas[1])
+    pessoa_result.pessoas1.append(sala3)
+    pessoa_result.pessoas2.append(sala4)
+    pessoa = Pessoa.query.first()
+    assert pessoa.pessoas1 == pessoa_result.pessoas1 and pessoa.pessoas2\
+           == pessoa_result.pessoas2

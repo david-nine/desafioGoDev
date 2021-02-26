@@ -5,7 +5,6 @@
     .tabela{
         width: 70%;
         margin: 0 auto;
-        border: solid 1px black;
         margin-top: 2%;
     }
     .tabela tbody tr:hover{
@@ -21,6 +20,9 @@
     a:hover{
         color: white;
     }
+    .table{
+        border: solid 1px black;
+    }
 </style>
 <style>
     .form{
@@ -28,7 +30,7 @@
     }
 </style>
     {% if pessoas: %}
-    <div class='tabela'></div>
+    <div class='tabela'>
     <table class="table">
             <thead>
                 <tr>
@@ -48,7 +50,7 @@
     </div>
     {% else %}
     <div style="background-color: lightgrey; margin: 10%; margin-top: 5%; padding: 2%; padding-top: 1%;padding-bottom: 3%; border: solid 1px grey;">
-        <p style="color:black; font-size: 150%;">Para poder adicionar pessoas é preciso ter duas salas e dois espaços para café para poder adicionar a pessoa em uma sala em cada uma das etapa</p>
+        <p style="color:black; font-size: 150%;">Para poder adicionar pessoas é preciso pelo menos ter duas salas e dois espaços para café cadastrados no sistema</p>
     </div>
     {% endif %}
 </div>
