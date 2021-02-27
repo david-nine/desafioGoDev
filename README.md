@@ -38,9 +38,11 @@ Páginas e conteúdo de cada uma delas
 
 - Lista com todas as pessoas cadastradas com um botão ao lado para visualizar
 o seu perfil.
+
 ![image](https://user-images.githubusercontent.com/54282964/109391445-df15ca80-78f5-11eb-9dcf-576f1e33cc06.png)
 
 - Campo para pesquisar a sala pelo nome no lado direito da navbar
+- 
 ![image](https://user-images.githubusercontent.com/54282964/109391474-11272c80-78f6-11eb-9fef-60207e67ff24.png)
 
 ### Perfil da pessoa
@@ -66,3 +68,6 @@ Execute os seguintes comandos no terminal:
     ```pip install -U pytest```
 
     ```python -m pytest```
+    
+Após executar os testes, execute novamente o star_bd.py para limpar o 
+banco de dados excluindo os dados dos testes
