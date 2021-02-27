@@ -38,12 +38,11 @@ class FormPessoa(FlaskForm):
             raise ValidationError("Não existem salas")
         elif not salas_cafe:
             raise ValidationError("Não existem espaços de café")
-        elif salas_certo:
+        elif salas_certo or salas_cafe:
             if len(salas_certo) < 2:
                 raise ValidationError("Não há salas sificientes para o\
                                       cadastro")
-        elif salas_cafe:
-            if len(salas_cafe) < 2:
+            elif len(salas_cafe) < 2:
                 raise ValidationError("Não há salas de café suficientes\
                                       para o cadastro")
         

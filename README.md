@@ -18,9 +18,12 @@ espaços de café para poder fazer a divisão das pessoas entra as salas.
 
 - Baixar [Python 3](https://www.python.org/downloads/)
 - Clonar o repositório
+- De o comando:
+
+    ```python -m pip install --upgrade pip```
 - instalar o arquivo **requirements.txt**
 
-    ```install requirements.txt```
+    ```python -m pip install -r requirements.txt```
 - Executar o arquivo **start_bd.py**
 - Executar o arquivo **inicializador.py**
 
@@ -30,9 +33,7 @@ Páginas e conteúdo de cada uma delas
 
 ### Home Page
 
-- Botão para cadastrar salas
-- Se ja tiver pelo menos uma sala cadastrada, aparece o botão de cadastrar 
-pessoas 
+- Navbar com os botões **Home**, **cadastrar sala**, **Cadastrar Pessoa**, **Cadastrar Espaço de café**
 - Lista com todas as pessoas cadastradas com um botão ao lado para visualizar
 o seu perfil.
 - Campo para pesquisar a sala pelo nome
