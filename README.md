@@ -33,27 +33,23 @@ Páginas e conteúdo de cada uma delas
 
 ### Home Page
 
-- Navbar com os botões **Home**, **cadastrar sala**, **Cadastrar Pessoa**, **Cadastrar Espaço de café**
-- 
-![image](https://user-images.githubusercontent.com/54282964/109391273-f86a4700-78f4-11eb-9e52-d610174c41f7.png)
+- Navbar com os botões **Home**, **cadastrar sala**, **Cadastrar Pessoa**, **Cadastrar Espaço de café** e um campo para pesquisar salas;
+
+![image](https://user-images.githubusercontent.com/54282964/109391697-2486c780-78f7-11eb-8b09-dc20eec217c7.png)
 
 - Lista com todas as pessoas cadastradas com um botão ao lado para visualizar
 o seu perfil.
 
 ![image](https://user-images.githubusercontent.com/54282964/109391445-df15ca80-78f5-11eb-9dcf-576f1e33cc06.png)
 
-- Campo para pesquisar a sala pelo nome no lado direito da navbar
-
-![image](https://user-images.githubusercontent.com/54282964/109391474-11272c80-78f6-11eb-9fef-60207e67ff24.png)
-
-### Perfil da pessoa
+### Consulta a pessoa
 
 Esta tela contém o nome da pessoa e duas tabelas, uma de cada etapa,
 com a sala que a pessoa vai ficar e o espaço de café.
 
 ![image](https://user-images.githubusercontent.com/54282964/109391530-4fbce700-78f6-11eb-8781-8913bb23cc40.png)
 
-### Sala
+### Consulta a sala
 
 Esta tela contém duas tabelas uma para cada etapa com a lista de pessoas
 que vai ficar nesta sala em cada uma das etapas.
