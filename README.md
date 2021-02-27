@@ -62,9 +62,8 @@ Para rodar os testes, execute o arquivo start_bd.py
 
 Execute os seguintes comandos no terminal:
    
-    ```pip install -U pytest
-    
-    python -m pytest```
+- ```pip install -U pytest```
+- ```python -m pytest```
     
 Após executar os testes, execute novamente o star_bd.py para limpar o 
 banco de dados excluindo os dados dos testes
