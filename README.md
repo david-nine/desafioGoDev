@@ -15,7 +15,8 @@ Para poder cadastrar pessoas é necessário ter no mínimo duas salas e dois
 espaços de café para poder fazer a divisão das pessoas entra as salas.
 
 ## Instalação
-
+- Docker hub: docker run -p 5000:5000 -d davidnine/gerenciador-eventos:4
+# 
 - Baixar [Python 3](https://www.python.org/downloads/)
 - Clonar o repositório
 - De o comando:
